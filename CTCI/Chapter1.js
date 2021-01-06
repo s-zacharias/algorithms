@@ -47,3 +47,34 @@ console.log(
 );
 console.log("checkPermutation('cat', 'rat')", checkPermutation('cat', 'rat'));
 console.log("checkPermutation('dog', 'god')", checkPermutation('dog', 'god'));
+
+// 1.3
+// URLify: Write a method to replace all spaces in a string with '%20'.
+// You may assume that the string has sufficient space at the end to hold
+// the additional characters,and that you are given the "true" length of
+// the string.
+
+const URLify = (input, length) => {
+  if (typeof input !== 'string') {
+    return 'Invalid Input';
+  }
+
+  let URL = '';
+  let extraSpace = 0;
+  for (let i = 0; i < input.length; i++) {
+    if (input[i] === ' ') {
+      URL += '%20';
+      extraSpace += 1;
+    } else {
+      URL += input[i];
+    }
+  }
+  return URL.slice(0, length + extraSpace - 2);
+};
+
+console.log('URLify(["a b c"], 13)', URLify(['a b c'], 1));
+console.log("URLify('Mr John Smith    ', 13)", URLify('Mr John Smith    ', 13));
+console.log(
+  "URLify('Miss Susie Louis Carter    ', 24)",
+  URLify('Miss Susie Louis Carter    ', 24)
+);
