@@ -80,3 +80,16 @@ console.log("fizzBuzz(12): ", fizzBuzz(12));
 console.log("fizzBuzz(2): ", fizzBuzz(2));
 console.log("fizzBuzz(3): ", fizzBuzz(3));
 
+// Max Character
+// Given a string of characters, return the 
+// character that appears the most often
+
+function max(input) {
+  const characters = {};
+  for (let char of input) {
+    characters[char] = characters[char] + 1 || 1;
+  }
+  return characters;
+}
+
+console.log(max("puppy"));
