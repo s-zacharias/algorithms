@@ -143,6 +143,7 @@ const oneAway = (string1, string2) => {
     return 'Invalid input';
   }
 
+  // handle the case where a letter is added or removed
   if (string1.length !== string2.length) {
     let letterObj = {};
 
@@ -162,6 +163,7 @@ const oneAway = (string1, string2) => {
       Object.keys(letterObj).length === 0 || Object.keys(letterObj).length === 1
     );
   } else {
+    // handle the case where a letter is replaced
     let editCount = 0;
 
     for (let k = 0; k < string1.length; k++) {
@@ -178,3 +180,40 @@ console.log("oneAway('pale', 'ple')", oneAway('pale', 'ple'));
 console.log("oneAway('pales', 'pale')", oneAway('pales', 'pale'));
 console.log("oneAway('pale', 'bale')", oneAway('pale', 'bale'));
 console.log("oneAway('pale', 'bake')", oneAway('pale', 'bake'));
+
+// 1. 6
+// String Compression: Implement a method to perform basic string compression using
+// the counts of repeated characters. For example, the string aabcccccaaa would
+// become a2blc5a3. If the "compressed" string would not become smaller than the
+// original string, your method should return the original string. You can assume
+// the string has only uppercase and lowercase letters (a - z).
+
+const stringCompression = (input) => {
+  let compressed = '';
+  let count = 1;
+
+  for (let i = 0; i < input.length; i++) {
+    if (input[i] === input[i + 1]) {
+      count++;
+    } else {
+      compressed += input[i] + count;
+      count = 1;
+    }
+  }
+
+  if (input.length === compressed.length) {
+    return input;
+  } else {
+    return compressed;
+  }
+};
+
+console.log(
+  "stringCompression('aabcccccaaa')",
+  stringCompression('aabcccccaaa')
+);
+console.log(
+  "stringCompression('ssskkkkellln')",
+  stringCompression('ssskkkkellln')
+);
+console.log("stringCompression('ss')", stringCompression('ss'));
