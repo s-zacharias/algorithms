@@ -59,22 +59,37 @@ const URLify = (input, length) => {
     return 'Invalid Input';
   }
 
+  let removedTrailing;
   let URL = '';
   let extraSpace = 0;
-  for (let i = 0; i < input.length; i++) {
-    if (input[i] === ' ') {
-      URL += '%20';
-      extraSpace += 1;
-    } else {
-      URL += input[i];
+
+  for (let j = input.length - 1; j >= 0; j--) {
+    if (input[j] !== ' ') {
+      removedTrailing = input.slice(0, j + 1);
+      break;
     }
   }
-  return URL.slice(0, length + extraSpace - 2);
+
+  for (let i = 0; i < removedTrailing.length; i++) {
+    if (removedTrailing[i] === ' ') {
+      URL += '%20';
+      extraSpace += 2;
+    } else {
+      URL += removedTrailing[i];
+    }
+  }
+  return URL.slice(0, length + extraSpace);
 };
 
 console.log('URLify(["a b c"], 13)', URLify(['a b c'], 1));
 console.log("URLify('Mr John Smith    ', 13)", URLify('Mr John Smith    ', 13));
-console.log(
-  "URLify('Miss Susie Louis Carter    ', 24)",
-  URLify('Miss Susie Louis Carter    ', 24)
-);
+console.log("URLify('Miss Susie ', 11)", URLify('Miss Susie ', 11));
+
+// 1.4
+// Palindrome Permutation: Given a string, write a function to check
+// if it is a permutation of a palin­ drome. A palindrome is a word
+// or phrase that is the same forwards and backwards. A permutation
+// is a rearrangement of letters. The palindrome does not need to
+// be limited to just dictionary words.
+
+const palindromePermutation = (input) => {};
