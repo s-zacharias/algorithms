@@ -78,6 +78,7 @@ const URLify = (input, length) => {
       URL += removedTrailing[i];
     }
   }
+
   return URL.slice(0, length + extraSpace);
 };
 
@@ -87,9 +88,47 @@ console.log("URLify('Miss Susie ', 11)", URLify('Miss Susie ', 11));
 
 // 1.4
 // Palindrome Permutation: Given a string, write a function to check
-// if it is a permutation of a palin­ drome. A palindrome is a word
+// if it is a permutation of a palin­drome. A palindrome is a word
 // or phrase that is the same forwards and backwards. A permutation
 // is a rearrangement of letters. The palindrome does not need to
 // be limited to just dictionary words.
 
-const palindromePermutation = (input) => {};
+const palindromePermutation = (input) => {
+  if (typeof input !== 'string') {
+    return 'Invalid input';
+  }
+
+  let letterObj = {};
+  let letterCount = 0;
+
+  for (let i = 0; i < input.length; i++) {
+    if (input[i] === ' ') {
+      continue; // skip spaces
+    }
+    if (letterObj[input[i]]) {
+      delete letterObj[input[i]]; // remove value when it has appeared twice
+    } else {
+      letterObj[input[i]] = true;
+    }
+    letterCount++;
+  }
+
+  if (letterCount % 2 === 0) {
+    return Object.keys(letterObj).length === 0; // if the count is even the obj should be empty
+  } else {
+    return Object.keys(letterObj).length === 1; // if the count is odd there can only be one item in the table
+  }
+};
+
+console.log(
+  "palindromePermutation('taco cat')",
+  palindromePermutation('taco cat')
+);
+console.log(
+  "palindromePermutation('anu ckd')",
+  palindromePermutation('anu ckd')
+);
+console.log(
+  "palindromePermutation('annjj  ')",
+  palindromePermutation('annjj  ')
+);
