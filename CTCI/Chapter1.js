@@ -132,3 +132,49 @@ console.log(
   "palindromePermutation('annjj  ')",
   palindromePermutation('annjj  ')
 );
+
+// 1.5
+// One Away: There are three types of edits that can be performed on strings:
+// insert a character, remove a character, or replace a character. Given two
+// strings, write a function to check if they are one edit (or zero edits) away.
+
+const oneAway = (string1, string2) => {
+  if (typeof string1 !== 'string' || typeof string2 !== 'string') {
+    return 'Invalid input';
+  }
+
+  if (string1.length !== string2.length) {
+    let letterObj = {};
+
+    for (let i = 0; i < string1.length; i++) {
+      letterObj[string1[i]] = true;
+    }
+
+    for (let j = 0; j < string2.length; j++) {
+      if (letterObj[string2[j]]) {
+        delete letterObj[string2[j]];
+      } else {
+        letterObj[string2[j]] = true;
+      }
+    }
+
+    return (
+      Object.keys(letterObj).length === 0 || Object.keys(letterObj).length === 1
+    );
+  } else {
+    let editCount = 0;
+
+    for (let k = 0; k < string1.length; k++) {
+      if (string1[k] !== string2[k]) {
+        editCount++;
+      }
+    }
+
+    return editCount === 0 || editCount === 1;
+  }
+};
+
+console.log("oneAway('pale', 'ple')", oneAway('pale', 'ple'));
+console.log("oneAway('pales', 'pale')", oneAway('pales', 'pale'));
+console.log("oneAway('pale', 'bale')", oneAway('pale', 'bale'));
+console.log("oneAway('pale', 'bake')", oneAway('pale', 'bake'));
