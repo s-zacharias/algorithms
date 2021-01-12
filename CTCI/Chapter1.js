@@ -201,7 +201,7 @@ const stringCompression = (input) => {
     }
   }
 
-  if (input.length === compressed.length) {
+  if (input.length >= compressed.length) {
     return input;
   } else {
     return compressed;
@@ -217,3 +217,25 @@ console.log(
   stringCompression('ssskkkkellln')
 );
 console.log("stringCompression('ss')", stringCompression('ss'));
+
+// 1.7
+// Rotate Matrix: Given an image represented by an NxN matrix, where each pixel
+// in the image is 4 bytes, write a method to rotate the image by 90 degrees. Can
+// you do this in place?
+
+const rotateMatrix = (input) => {
+  // swap by the indexes using 1 temp variable
+  const n = input.length;
+  // need 2 for loops to access every element in the matrix
+  for (let i = 0; i < n / 2; i++) {
+    // the outer loop is bound by half of the matrix
+    for (let j = i; j < n - 1 - i; j++) {
+      // the inner loop is bound by the n - the number loop were on (i) - 1
+      let temp = input[i][j]; // create a temp variable to save the top left value
+      input[i][j] = input[n - 1 - j][i]; // move the bottom left to the top
+      input[n - 1 - j][i] = input[n - i - 1][n - 1 - j]; // move the bottom right to the bottom left
+      input[n - i - 1][n - 1 - j] = input[j][n - i - 1]; // move top right to bottom right
+      input[j][n - i - 1] = temp; // move top left to top right
+    }
+  }
+};
