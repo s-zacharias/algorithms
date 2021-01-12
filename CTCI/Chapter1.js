@@ -223,19 +223,69 @@ console.log("stringCompression('ss')", stringCompression('ss'));
 // in the image is 4 bytes, write a method to rotate the image by 90 degrees. Can
 // you do this in place?
 
-const rotateMatrix = (input) => {
+const rotateMatrix = (matrix) => {
   // swap by the indexes using 1 temp variable
-  const n = input.length;
+  const n = matrix.length;
   // need 2 for loops to access every element in the matrix
   for (let i = 0; i < n / 2; i++) {
     // the outer loop is bound by half of the matrix
     for (let j = i; j < n - 1 - i; j++) {
       // the inner loop is bound by the n - the number loop were on (i) - 1
-      let temp = input[i][j]; // create a temp variable to save the top left value
-      input[i][j] = input[n - 1 - j][i]; // move the bottom left to the top
-      input[n - 1 - j][i] = input[n - i - 1][n - 1 - j]; // move the bottom right to the bottom left
-      input[n - i - 1][n - 1 - j] = input[j][n - i - 1]; // move top right to bottom right
-      input[j][n - i - 1] = temp; // move top left to top right
+      let temp = matrix[i][j]; // create a temp variable to save the top left value
+      matrix[i][j] = matrix[n - 1 - j][i]; // move the bottom left to the top
+      matrix[n - 1 - j][i] = matrix[n - i - 1][n - 1 - j]; // move the bottom right to the bottom left
+      matrix[n - i - 1][n - 1 - j] = matrix[j][n - i - 1]; // move top right to bottom right
+      matrix[j][n - i - 1] = temp; // move top left to top right
     }
   }
 };
+
+// 1.8
+// Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0,
+// its entire row and column are set to 0.
+
+const zeroMatrix = (matrix) => {
+  // create row and column trackers to indicate where zeros are
+  let rowTracker = new Array(matrix.length);
+  let columnTracker = new Array(matrix[0].length);
+
+  // loop through the matrix and mark whether or not there is a zero in the row or column
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      if (matrix[i][j] === 0) {
+        rowTracker[i] = true;
+        columnTracker[j] = true;
+      }
+    }
+  }
+
+  // loop through the row tracker and make the matrix have zeros in those rows
+  for (let i = 0; i < rowTracker.length; i++) {
+    if (rowTracker[i]) {
+      for (let j = 0; j < matrix[0].length; j++) {
+        matrix[i][j] = 0;
+      }
+    }
+  }
+
+  // loop through the column tracker and make the matrix have zeros in those columns
+  for (let i = 0; i < columnTracker.length; i++) {
+    if (columnTracker[i]) {
+      for (let j = 0; j < matrix.length; j++) {
+        matrix[j][i] = 0;
+      }
+    }
+  }
+
+  return matrix;
+};
+
+console.log(
+  'expected to be: [ [ 0, 0, 0, 0 ], [ 0, 1, 0, 3 ], [ 0, 0, 0, 0 ], [ 0, 1, 0, 3 ] ]\n',
+  zeroMatrix([
+    [0, 1, 2, 3],
+    [3, 1, 2, 3],
+    [9, 1, 0, 3],
+    [5, 1, 2, 3],
+  ])
+);
