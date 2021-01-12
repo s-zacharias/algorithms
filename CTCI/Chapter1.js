@@ -289,3 +289,18 @@ console.log(
     [5, 1, 2, 3],
   ])
 );
+
+// 1.9
+// String Rotation:Assumeyou have a method isSubstringwhich checks if one word
+// is a substring of another. Given two strings, sl and s2, write code to check
+// if s2 is a rotation of sl using only one call to isSubstring (e.g.,"waterbottle"
+// is a rotation of"erbottlewat").
+
+const stringRotation = (s1, s2) => {
+  // check that s1 and s2 are the same length & not empty
+  if (s1.length === s2.length && s1.length > 0) {
+    let s1s1 = s1 + s1; // if we break up s1 into two parts, s2 will be a substring of s1 + s1 if it is a rotation of s1
+    return isSubstring(s1s1, s2);
+  }
+  return false;
+};
